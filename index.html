@@ -142,9 +142,84 @@ footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;
   .stats{grid-template-columns:repeat(2,1fr);gap:20px 14px;max-width:340px}
   .stat{align-items:center;text-align:center}
   .stat b{font-size:1.9rem}.ev{grid-template-columns:1fr;gap:2px}.slide{flex:0 0 92%}}
+
+/* ==== macOS Glassmorphism Theme Override ==== */
+:root{
+  --canvas:transparent;
+  --surface:rgba(255,255,255,.55);
+  --surface-solid:rgba(255,255,255,.72);
+  --ink:#1D1D1F;--ink-2:#454548;--ink-3:#6A6A70;
+  --hair:rgba(255,255,255,.55);--hair-2:rgba(120,120,140,.14);
+  --blue:#0A84FF;--green:#30D158;--amber:#FF9F0A;--red:#FF453A;--gray:#8E8E93;
+  --glass-shadow:0 1px 1px rgba(0,0,0,.04),0 8px 24px rgba(30,40,80,.10),inset 0 1px 0 rgba(255,255,255,.6);
+  --shadow:var(--glass-shadow);
+  --blur:saturate(180%) blur(30px);
+  --r:20px;
+}
+html{
+  background:
+    radial-gradient(1100px 700px at 8% -8%,rgba(120,170,255,.55),transparent 60%),
+    radial-gradient(1000px 720px at 100% 0%,rgba(255,150,210,.42),transparent 55%),
+    radial-gradient(1000px 800px at 50% 115%,rgba(140,220,200,.45),transparent 60%),
+    linear-gradient(165deg,#EEF3FF 0%,#F6EEFA 45%,#EAF7F3 100%);
+  background-attachment:fixed;min-height:100%;
+}
+body{background:transparent;}
+
+/* frosted floating glass surfaces */
+.status,.card,.meet,.fbox,.ftab,.note,.done-strip,.crit-strip,.chip,.badge,.after{
+  background:var(--surface)!important;
+  -webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);
+  border:.5px solid var(--hair)!important;
+  box-shadow:var(--glass-shadow)!important;
+}
+.nav{
+  background:rgba(255,255,255,.4)!important;
+  -webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);
+  border-bottom:.5px solid rgba(255,255,255,.5)!important;
+}
+.done-strip{background:linear-gradient(180deg,rgba(214,248,224,.6),rgba(255,255,255,.45))!important;border-color:rgba(48,209,88,.35)!important}
+.crit-strip{background:linear-gradient(180deg,rgba(255,224,222,.6),rgba(255,255,255,.45))!important;border-color:rgba(255,69,58,.32)!important}
+.meet.next{background:linear-gradient(180deg,rgba(212,235,255,.62),rgba(255,255,255,.45))!important;border-color:rgba(10,132,255,.4)!important}
+
+/* deeper frost + glossy top edge on hover */
+.card{overflow:hidden;transition:transform .4s var(--sp),box-shadow .4s var(--sp),border-color .4s}
+.card:hover{transform:translateY(-3px) scale(1.004);box-shadow:0 10px 30px rgba(30,40,90,.16),inset 0 1px 0 rgba(255,255,255,.75)!important;border-color:rgba(255,255,255,.8)!important}
+.card[open]{background:var(--surface-solid)!important;border-color:rgba(10,132,255,.4)!important;box-shadow:0 12px 40px rgba(10,132,255,.14),inset 0 1px 0 rgba(255,255,255,.7)!important}
+
+/* traffic-light dots accent in the nav (mac window buttons) */
+.nav .wrap{position:relative}
+.brand::before{content:"";display:inline-block;width:12px;height:12px;border-radius:50%;
+  background:#FF5F57;box-shadow:20px 0 0 #FEBC2E,40px 0 0 #28C840;margin-inline-end:52px;vertical-align:middle;
+  border:.5px solid rgba(0,0,0,.06)}
+
+.chip{background:rgba(255,255,255,.5)!important}
+.chip:hover{transform:translateY(-2px);border-color:rgba(255,69,58,.6)!important;box-shadow:0 8px 20px rgba(255,69,58,.18)!important}
+.badge{background:rgba(255,255,255,.45)!important}
+.badge.st-active{background:rgba(255,159,10,.2)!important;color:#8A5300}
+.badge.st-done{background:rgba(48,209,88,.2)!important;color:#146B37}
+.badge.crit{background:rgba(255,69,58,.16)!important;color:#B32019}
+
+.ftab{overflow:hidden}
+.ftab th{background:rgba(31,56,100,.92)!important;-webkit-backdrop-filter:none;backdrop-filter:none}
+.ftab td{border-bottom:.5px solid var(--hair-2)}
+
+.slide img{border:.5px solid rgba(255,255,255,.6)}
+.hero h1{background:linear-gradient(120deg,#1D1D1F,#3A3A6A);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.ring .fg{stroke:url(#ringGrad)}
+
+@media print{
+  html{background:#fff!important}
+  .status,.card,.meet,.fbox,.ftab,.note,.done-strip,.crit-strip{background:#fff!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;box-shadow:none!important;border-color:#DDD!important}
+  .brand::before{display:none}
+}
+
 </style>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1">
+<stop offset="0" stop-color="#0A84FF"/><stop offset="1" stop-color="#BF5AF2"/></linearGradient></defs></svg>
 <nav class="nav"><div class="wrap">
   <div class="brand">فيلا 5557<span>لوحة إدارة المشروع</span></div>
   <div class="navstat">8 بند حرِج · 38 يوماً</div>

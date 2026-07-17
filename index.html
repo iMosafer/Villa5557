@@ -242,7 +242,7 @@ body{background:transparent;}
       <div class="stat crit"><b class="num">8</b><small>بند حرِج</small></div>
       <div class="stat"><b class="num">24</b><small>بنداً متبقياً</small></div>
       <div class="stat"><b class="num">1</b><small>قيد التنفيذ</small></div>
-      <div class="stat due"><b class="num">38</b><small>يوماً حتى التسليم</small></div>
+      <div class="stat due"><b class="num" id="daysLeft">36</b><small>يوماً حتى التسليم</small></div>
     </div>
   </div>
 </div></header>
@@ -744,5 +744,21 @@ body{background:transparent;}
   <div>المالك: أحمد عبدالله بن يعروف النقبي · المقاول: اليسر · الاستشاري: أصول</div>
   <div>اجتماع المتابعة: كل أحد، 9:30 صباحاً · محدّث في 12/07/2026</div>
 </div></footer>
+<script>
+(function(){
+  try{
+    var target=new Date(2026,7,20); // 20 Aug 2026 (month is 0-based)
+    var now=new Date(); now.setHours(0,0,0,0);
+    var diff=Math.round((target-now)/86400000);
+    var el=document.getElementById('daysLeft');
+    var lbl=el?el.nextElementSibling:null;
+    if(el){
+      if(diff>0){ el.textContent=diff; }
+      else if(diff===0){ el.textContent='اليوم'; if(lbl)lbl.textContent='موعد التسليم'; }
+      else { el.textContent=Math.abs(diff); if(lbl)lbl.textContent='يوماً بعد الموعد'; }
+    }
+  }catch(e){/* keep static fallback */}
+})();
+</script>
 </body>
 </html>
